@@ -12,17 +12,18 @@ export class ProductService
 
   async createProduct(productDto: ProductDto)
   {
-    const productExists: ProductDto = await this.findProductById(productDto.id);
-    if (productExists)
+    const productExist: ProductDto = await this.findProductById(productDto.id);
+    if (productExist.id > 1)
     {
       throw new ConflictException('ERROR: El producto con id {' + productDto.id + '} ya existe');
-    }
+    } 
     else
     {
       return await this.productRepository.save(productDto);
     }
   }
 
+  
   async findAllProducts()
   {
     return await this.productRepository.find({
@@ -48,5 +49,18 @@ export class ProductService
         id: id
       }
     });
+  }
+
+  async updateProduct(productDto: ProductDto)
+  {
+    const productExist: ProductDto = await this.findProductById(productDto.id);
+    if (productExist.id > 1)
+    {
+      return await this.productRepository.save(productDto);
+    }
+    else
+    {
+      throw new ConflictException('ERROR: El producto no existe');
+    }
   }
 }
