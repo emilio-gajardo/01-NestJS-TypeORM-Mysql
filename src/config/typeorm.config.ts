@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
+
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: 'localhost',
@@ -9,4 +10,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: 'shop',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: true,
+  //timezone: '+07:00' //gmt
 }
